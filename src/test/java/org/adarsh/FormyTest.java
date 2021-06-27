@@ -1,37 +1,30 @@
 package org.adarsh;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class FormyTest {
+public class FormyTest extends BaseClass{
 
-    public static WebDriver driver;
-
-    @BeforeAll
-    public static void setup() {
-        System.setProperty("webdriver.chrome.driver", "C:\\dev\\chromedriver_win32_91\\chromedriver.exe");
-    }
-
+    @DisplayName("This is a very special test case")
     @Test
     public void launchChrome() {
-        driver = new ChromeDriver();
+     //   System.out.println("running the :: --> "+testInfo.getDisplayName());
         driver.get("https://formy-project.herokuapp.com/");
-        String welcomecomponent = driver.findElement(By.xpath(".//div[@class='jumbotron-fluid']/h1")).getText();
+        String welcomecomponent = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[@class='jumbotron-fluid']/h1"))).getText();
         assertEquals("Welcome to Formy", welcomecomponent);
+      /*  driver.navigate().to("https://formy-project.herokuapp.com/dropdown");
+
+       Select select = new Select(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@id='dropdownMenuButton']"))));
+       select.selectByVisibleText("Radio Button");*/
     }
 
-    @AfterAll
-    public static void tearDown() {
-        System.out.println("This is the teardown script!!");
-        driver.quit();
-    }
+
 
 }
 
